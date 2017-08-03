@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="con">
+    <table class="table table-responseive table-striped table-hover" border="1">
+        <thead class="bg-primary">
+            <th><input type="checkbox" ng-model="quanXuan" data-ng-click="quanXuanZhong($event)">全选</th>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>性别</th>
+            <th>手机号</th>
+            <th>图片</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in list" id="{{x.user_id}}">
+                <td><input type="checkbox" ng-checked="quanXuan" data-ng-click="xuanZhong($event,x.user_id)"></td>
+                <td>{{x.user_id}}</td>
+                <td>{{x.user_name}}</td>
+                <td>{{x.user_sex | xingBie}}</td>
+                <td>{{x.user_tel}}</td>
+                <td><img style="width: 50px;height: 50px" ng-src="{{x.user_photo}}"></td>
+                <td>
+                    <a href="/userAction/userEditPage?id={{x.user_id}}">修改</a> | <a href="/userAction/deleteUser?id={{x.user_id}}">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="0"><button class="btn btn-primary" data-ng-click="tianJia()">添加用户</button></td>
+                <td colspan="0"><button class="btn btn-primary" data-ng-click="deleteMany()">删除多个</button></td>
+                <td colspan="5"><button class="btn btn-primary" data-ng-click="fanHui()">返回首页</button></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",[]).controller("con",["$scope","$http",function ($scope,$http) {
+        var url="/userAction/selectUsers";
+        var data={};
+        $http.post(url,data).then(function (result) {
+            $scope.list=result.data.users;
+        });
+        $scope.tianJia=function () {
+            window.location.href="/userAction/insertPage";
+        };
+        $scope.fanHui=function () {
+            window.location.href="/";
+        };
+        var userIdS=[];
+        $scope.xuanZhong=function ($event,userId) {
+            var check=$event.target.checked;
+            if (check==true){
+                userIdS.push(userId)
+            }else{
+                var index=$.inArray(userId,userIdS);
+                userIdS.splice(index,1)
+            }
+//            alert(userIdS);
+        };
+        $scope.quanXuanZhong=function ($event) {
+            var check=$event.target.checked;
+            if (check==true){
+                for (var i=0; i<$scope.list.length;i++){
+                    userIdS.push(($scope.list)[i].user_id);
+                }
+            }else{
+                userIdS=[]
+            }
+        };
+        $scope.deleteMany=function () {
+            if (userIdS.length>0){
+                var userIdSStr="'"+userIdS.join("\',\'")+"'";
+                $http.post("/userAction/deleteManyUserS",{userIdSStr:userIdSStr}).then(function (result) {
+                    var Code=result.data.resultCode;
+                    if (Code==1){
+                        alert("删除成功");
+                        for (var i=0;i<userIdS.length;i++){
+                            $("#"+userIdS[i]).remove()
+//                            userIdS.splice(i,1);//从数组中删除
+                        }
+                        userIdS=[]
+                    }else{
+                        alert("删除失败")
+                    }
+                })
+            }else{
+                alert("请先选择要删除的用户")
+            }
+        }
+    }]);
+    app.filter("xingBie",function () {
+        return function (a) {
+            var xb=a==1?"男":"女";
+            return xb;
+        }
+    })
+</script>
+</html>

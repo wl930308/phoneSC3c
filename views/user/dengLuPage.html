@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script src="/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular-messages.min.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        body{
+            background-image: url(/images/dlbj.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        p{
+            text-align:center;
+            font-size: 17px;
+            color: red;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body ng-app="app" ng-controller="con">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><strong>账号登录</strong></h1>
+            <h5>带星号的是必填项</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form role="form" class="form form-horizontal" name="dengLu" action="" method=""><!--撤销验证-->
+                <div class="form-group">
+                    <label for="zhangHao" class="col-md-2 text-right">账号<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control col-md-9" ng-minlength="2" ng-maxlength="15" ng-model="userName" required name="userName" id="zhangHao"/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="dengLu.userName.$error">
+                        <div class="alert alert-danger" ng-messages-include="message"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-md-2 text-right">密码<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" ng-minlength="2" ng-maxlength="15" name="password" ng-model="password" id="password" required/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="dengLu.password.$error">
+                        <div class="alert alert-danger" ng-messages-include="message"></div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" ng-disabled="dengLu.$invalid" ng-click="tiJiao()">提交</button>
+                    <button type="reset" class="btn btn-danger">清空</button>
+                </div>
+                {{dengLu.userName.$invalid}}
+                {{dengLu.password.$invalid}}
+            </form>
+            <script type="text/ng-template" id="message">
+                <div class="alert alert-danger" ng-message="required">必须填写的</div>
+                <div class="alert alert-danger" ng-message="minlength">最少输入2个字符</div>
+                <div class="alert alert-danger" ng-message="maxlength">最多只能输入15个字符</div>
+            </script>
+        </div>
+    </div>
+</div>
+<p><strong>长风破浪会有时，直挂云帆济沧海</strong></p>
+<!--自定义标签-->
+<mo-tai-chuang></mo-tai-chuang>
+</body>
+<!--自定义标签模版-->
+<script type="text/ng-template" id="moBan">
+    <div class="modal fade" id="myModal" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="myModalLabel">消息提示</h4>
+                </div>
+                <div class="modal-body">{{loginMsg}}</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-ng-show="queding" data-ng-click="modalQueding()">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+    var app=angular.module("app",['ngMessages']);
+    app.directive("moTaiChuang",function () {
+        return {
+            restrict:"E",//声明自定义标签类型为元素
+            templateUrl:"moBan" //调用自定义标签的模版
+        }
+    });
+    app.controller("con",["$scope","$http",function($scope,$http){
+        $scope.tiJiao=function () {
+            var userName=$scope.userName;
+            var password=$scope.password;
+            var url="/userAction/dengLu";
+            var data={userName:userName,password:password};
+            $http.post(url,data).then(function (result) {
+                var code=result.data.resultCode;
+//                    if (code==1){
+//                        alert("登录成功");
+//                        window.location.href="/";
+//                    }else{
+//                        alert("登录失败");
+//                    }
+                var msg=result.data.resultMsg;
+                if (code==1){
+                    $("#myModal").modal("show");
+                    $scope.loginMsg=msg;
+                    $scope.queding=true;
+                    $scope.modalQueding=function () {
+                        window.location.href="/";
+                    }
+                }else{
+                    $("#myModal").modal("show");
+                    $scope.loginMsg=msg;
+                }
+            })
+        }
+    }])
+</script>
+</html>

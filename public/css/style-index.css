@@ -1,0 +1,97 @@
+/*head开始*/
+.head{height: 100px;width: 100%;background:url(../images/ind/hea1.png);z-index: 100;position:absolute;top: 0;}
+.head1{height: 100px;width: 1300px;margin:0 auto;background:url(../images/ind/LOGO1.png) no-repeat left;}
+.di1{width: 535px;height: 50px; margin:25px auto;background: url(../images/ind/hea1.png);}
+.inp{height: 50px;width: 475px; border:none;color: white;margin-right: 0px;font-size: 24px;background-color: transparent;}
+.btn{border: none;background: url(../images/ind/fdj.png) top no-repeat;height: 35px;width:60px;margin-top: 7.5px;float: right;}
+.form1{width: 800px;float: left;}
+.a1{float: right;color: white;margin-top: 38px;margin-left: 9px;}
+.head1 .a1{font-size:15px;color:#fefbfb;font-family:"微软雅黑"}
+/*head结束*/
+/*banner开始*/
+.slideBox{ width:100%; height:692px; overflow:hidden; position:relative;float: left; }
+.slideBox .hd{ height:15px; overflow:hidden; position:absolute; bottom:0px; z-index:1; width: 100%;height: 50px; margin:0 auto;margin-top: 652px;background:url(../images/ind/bn1.png);}
+.hd_mid{width: 1200px;margin:0 auto; }
+.slideBox .hd .hd_mid span{float:left;color:#fcfdfe;font-size:18px;font-family:"宋体";line-height:50px}
+.slideBox .hd .hd_mid ul{ overflow:hidden; zoom:1;float:right }
+.slideBox .hd .hd_mid ul li{ float: right; margin-right:16px;margin-top: 17.5px;  width:15px; height:15px; line-height:50px; text-align:center; background:#fff; cursor:pointer;border-radius: 8px; }
+.slideBox .hd .hd_mid ul li.on{ background:#91dcfa; color:#fff; }
+.slideBox .bd{ position:relative; height:100%; z-index:0;   }
+.slideBox .bd li{ zoom:1; vertical-align:middle; }
+.slideBox .bd img{ width:100%; height:692px; display:block;  }
+/*banner结束*/
+/*苹果列表开始*/
+.apple{width: 100%;height: 1000px;float: left;background:#f5f5f5;}
+.apple1{width:1200px;height: 1000px;margin:0 auto;}
+.h21{text-align: center;font-size: 36px;}
+.span1{text-align: center;display: block;height: 50px;width: 100px;margin:0 auto;font-size: 24px;font-weight: bold;}
+.span11{font-size:48px;line-height: 55px;color:#fff;}
+.span12{font-size:18px;color:#fff;font-family:"微软雅黑";}
+.span13{font-size: 48px;height: 30px;text-align:left;float:right;width: 230px;color:#fff}
+.gdj{background:#fb9504;color:#fff;height:56px;float:right;width:56px;font-size:54px;font-family:"宋体";text-align:center;line-height:56px}
+.span13 em{font-size:24px;color:#fff;font-style:normal}
+.imgs a{color: black;width:100%;float:left}
+/*JS部分开始 小米列表和苹果列表共用*/
+.Mtime{ width:1200px; height:785px;  overflow:hidden; position:relative; background:url("../images/bgs.jpg") no-repeat;  }
+.Mtime .tabBox{ overflow:hidden; zoom:1; }
+.Mtime .tabBox .bd{ width: 800px;  float:left; margin-right: 20px; }
+.Mtime .tabBox .bd ul{padding:0;margin:0;}
+.Mtime .tabBox .bd li{ overflow:hidden; zoom:1; width: 765px;height: 510px;}
+.Mtime .tabBox .bd .imgs{ float:left; width:100%;height: 55px;background:url(../images/ind/lt.png);margin-top: 455px; }
+.Mtime .tabBox .bd .imgs img{height: 790px;height: 510px;}
+.Mtime .tabBox .hd{ width:370px; float:left;}
+.Mtime .tabBox .hd ul{padding:0;margin:0;}
+.Mtime .tabBox .hd li{ margin-bottom:30px;cursor:pointer; vertical-align:middle;  width: 370px;height: 240px;float: right;}
+.Mtime .tabBox .hd a{ display:block; height:240px; overflow:hidden;position:relative }
+.Mtime .tabBox .hd a p{display:block;width:100%;height:240px;float:left;background:url(../images/picin01.png);position:absolute;top:0px;left:0px}
+.Mtime .tabBox .hd a p img{border:none;display:block;width:47px;height:47px;margin:0 auto;margin-top:96px}
+.Mtime .tabBox .hd img{ width:370px; height:240px;  }
+.Mtime .tabBox .hd li.on{ background:url("../images/bzh.jpg") 0 center no-repeat;}
+.Mtime .tabBox .hd li.on a{ background:#85CB35;  }
+.Mtime .tabBox .hd li.on a p{display:none}
+.Mtime .tabBox .hd .li1{position: absolute;top: 540px;left: 0;}
+.Mtime .tabBox .hd .li2{position: absolute;top: 540px;left: 395px;}
+/*JS结束*/
+.apple .a2{display: block;color: black; font-size: 24px;text-align: center;margin:35px auto;font-family:"微软雅黑"}
+/*苹果列表结束*/
+/*配件区开始*/
+.pjq{height: 245px;width:100%;float: left;}
+.pjq1{height: 245px;width: 1200px;margin:0 auto;}
+.pjq1 li{height: 245px;float: left;}
+.pjq li:hover .ldi{display: block}
+.pjeq li:hover .ldi{display: block}
+.pjq1 li:first-child{width: 270px;background: #f5f5f5;}
+.pjq1 li:first-child span{font-size: 28px;display: block;width: 100%;text-align: right;font-weight: bold;margin-top: 10px;}
+.pjq1 li:first-child a{font-size: 28px;display: block;float: right;color: black;text-align: right;margin-top: 15px;font-weight: bold;}
+.pjq1 li:nth-child(2){width: 330px;}
+.pjq1 li:nth-child(3){width:600px;}
+.pjeq{height: 245px;width:100%;float: left;background-color: #f5f5f5;}
+.pjq2{height: 245px;width: 1200px;margin:0 auto;}
+.pjq2 li{height: 245px;float: left;}
+.pjq2 li:first-child{width: 270px;}
+.pjq2 li:nth-child(2){width:600px;}
+.pjq2 li:nth-child(3){width:330px;}
+.ldi{height: 50px;background: url(../images/ind/CT1.png);margin-top: 195px;display: none;}
+.ldi a{color: white;}
+.span21{line-height: 50px;font-size: 36px;}
+.span22{float: right;font-size: 36px;line-height: 50px;margin-right:16px}
+/*配件区结束*/
+/*小米列表开始*/
+/*小米列表已经结束了*/
+/*品牌区开始*/
+.pp{height: 365px;width: 100%;float: left;}
+.pp1{height: 365px;width: 1200px;margin:0 auto;}
+.pp .pp1 dl dt{font-size: 26px;text-align: center;margin:50px; }
+.pp .pp1 dl dt a{color: black;font-size:36px;font-family:"微软雅黑"}
+.pp .pp1 dl dd{height: 200px;width: 200px;float: left;margin-right: 50px;}
+.pp .pp1 dl .dd1{margin-right: 0px;}
+/*品牌区结束*/
+/*footer区开始*/
+.footer{height: 132px;width: 100%;float: left;background: #404040;}
+.footer1{width: 1200px;margin:0 auto;}
+.footer1 ul{width: 1020px;height: 30px;margin:26px auto;margin-bottom: 20px;}
+.footer1 ul li{display: block;width: 100px;height: 25px;padding-right: 10px;padding-left: 9px; font-size: 24px;float: left;border-right: 1px solid white;text-align: center;}
+.footer1 ul a{color: white;}
+.footer1 .lf1{border: none;}
+.footer1 h1{text-align: center;font-size: 18px;color:#fff;font-size:24px;font-weight:normal;font-family:"宋体"}
+/*footer结束*/

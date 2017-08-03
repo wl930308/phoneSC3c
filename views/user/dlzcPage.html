@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/css/style1.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <style type="text/css">
+        .circle{
+            transition-duration: 1s;
+        }
+        .circle:hover{
+            transform:rotate(360deg) scale(1.1)  ;
+            /*
+                translate 位移  左上角为0,0点 向右下移动  负数是左上
+                scale 放大倍数  1个参数是xy同时放大 2个参数是xy分别放大倍数
+                rotate 旋转度数   数字+deg
+                transition-duration 过度时间  也就是多久达到这个效果
+                translate(100px,100px)
+            */
+            transition-duration: 1s;
+        }
+    </style>
+</head>
+<body>
+<div class="box clearfix">
+    <div class="left_box">
+        <img src="/images/Corporate.png" alt="gq" title="文字">
+        <a href="/userAction/dengLuPage">
+            <div class="circle" >
+                <h2 class="title">LOGIN</h2>
+                <p class="one">登录</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="right_box">
+        <img src="/images/Corporate2.png" alt="">
+        <a href="/userAction/zhuCePage">
+            <div class="circle circle1">
+                <h2 class="title">REGISTER</h2>
+                <p class="one">注册</p>
+            </div>
+        </a>
+    </div>
+</div>
+</body>
+</html>

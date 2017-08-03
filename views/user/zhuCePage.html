@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script src="/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular-messages.min.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        body{
+            background-image: url(/images/timg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 1536px 880px;
+        }
+    </style>
+</head>
+<body ng-app="app" ng-controller="con">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><strong>账号注册</strong></h1>
+            <h5>带星号的是必填项</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form role="form" class="form form-horizontal" name="zhuCe" action="/userAction/userZhuCe" method="post">
+                <div class="form-group">
+                    <label for="zhangHao" class="col-md-2 text-right">账号<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control col-md-9" ng-minlength="2" ng-maxlength="15" ng-model="userName" required name="userName" id="zhangHao" ng-blur="yanZheng()"/>
+                        <div ng-show="chongFu" class="alert alert-danger">用户名已重复</div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.userName.$error">
+                        <div class="alert alert-danger" ng-messages-include="message"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-md-2 text-right">密码<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" ng-minlength="2" ng-maxlength="15" name="password" ng-model="password" id="password" required/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.password.$error">
+                        <div class="alert alert-danger" ng-messages-include="message"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-2 text-right">Email<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="email" class="form-control" name="email" ng-model="email" id="email" required/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.email.$error">
+                        <div class="alert alert-danger" ng-messages-include="message"></div>
+                        <div class="alert alert-danger" ng-message="email">您输入的邮箱格式不正确</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 text-right ">性别</label>
+                    <div class="col-md-10">
+                        <label class="" for="sex1">男:</label>
+                        <input type="radio" class="radio-inline" name="sex" id="sex1" value="1"/>
+                        <label class="" for="sex2">女:</label>
+                        <input type="radio" class="radio-inline" name="sex" id="sex2" value="0"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age" class="col-md-2 text-right">年龄</label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" name="age" ng-maxlength="3" ng-model="age" id="age"/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.age.$error">
+                        <div class="alert alert-danger" ng-message="maxlength">最多三位数</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="diYu" class="col-md-2 text-right">地域</label>
+                    <div class="col-md-10">
+                        <select name="" ng-model="wl" id="diYu">
+                            <option value="">请选择</option>
+                            <option value="" ng-repeat="x in list">{{x}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="col-md-2 text-right">联系方式<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" name="phone" ng-maxlength="11" ng-minlength="11" ng-model="phone" id="phone" ng-pattern="/^1[34578]\d{9}$/" required/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.phone.$error">
+                        <div class="alert alert-danger" ng-message="required">必须填写的</div>
+                        <div class="alert alert-danger" ng-message="maxlength">电话为11位数</div>
+                        <div class="alert alert-danger" ng-message="minlength">电话为11位数</div>
+                        <div class="alert alert-danger" ng-message="pattern">请输入正确的手机号码</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="idcard" class="col-md-2 text-right">身份证号<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="idcard" id="idcard" ng-model="idcard" ng-pattern="/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/" required/>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="zhuCe.idcard.$error">
+                        <div class="alert alert-danger" ng-message="required">必须填写的</div>
+                        <div class="alert alert-danger" ng-message="pattern">请输入正确的身份证号</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" ng-disabled="zhuCe.$invalid">提交</button>
+                    <button type="reset" class="btn btn-danger">清空</button>
+                </div>
+                {{zhuCe.userName.$invalid}}
+                {{zhuCe.password.$invalid}}
+                {{zhuCe.email.$invalid}}
+                {{zhuCe.age.$invalid}}
+                {{zhuCe.phone.$invalid}}
+                {{zhuCe.idcard.$invalid}}
+            </form>
+            <script type="text/ng-template" id="message">
+                <div class="alert alert-danger" ng-message="required">必须填写的</div>
+                <div class="alert alert-danger" ng-message="minlength">最少输入2个字符</div>
+                <div class="alert alert-danger" ng-message="maxlength">最多只能输入15个字符</div>
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",["ngMessages"]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+        $scope.list=["天朝帝都","天朝黑龙江","天朝辽宁","天朝吉林","天朝上海","天朝下属联合国部落"];
+        $scope.yanZheng=function () {
+            var userName=$scope.userName;
+            if (userName!=undefined){
+                $scope.chongFu=false;
+                var url="/userAction/yanZhengUserName";
+                var data={userName:userName};
+                $http.post(url,data).then(function (result) {
+                    var code=result.data.resultCode;
+                    if (code==1){
+                        $scope.chongFu=true;
+                    }
+                })
+            }
+        }
+    }]);
+</script>
+</html>

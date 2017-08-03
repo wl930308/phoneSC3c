@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style-list.css">
+    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body ng-app="app" ng-controller="con">
+<!-- head开始 -->
+<div class="head">
+    <div class="head1">
+        <span class="span1">用心为您服务</span>
+        <span class="span2"><a href="/" class="a1">首页</a>><a href="" class="a1">更多品牌</a></span>
+        <span class="span3">
+            <a href="/" class="a1">首页</a>
+            <a href="/dingDanAction/gouWuChePage" class="a1">购物车</a>
+            <a href="" class="a1">联系方式</a>
+            <% if(isLogined){ %>
+            <span class="a1">当前用户:<%= userName %></span><a href="/userAction/tuiChu" class="a1" style="color:deeppink;font-size:12px">退出登录</a>
+            <% } %>
+            <% if(!isLogined){ %>
+            <a href="/userAction/dlzcPage" class="a1">登陆/注册</a>
+            <% } %>
+        </span>
+    </div>
+</div>
+<!-- head结束 -->
+<!-- 筛选开始 -->
+<div class="sx clearfix">
+    <span>品牌：</span>
+    <a href="">苹果/Apple</a>
+    <a href="">小米/MI</a>
+    <a href="">威图/VERTU</a>
+    <a href="">谷歌/NEXUS</a>
+    <a href="">华为/Huawei</a>
+    <a href="">诺基亚/Nokia</a>
+    <a href="">中兴/ZTE</a>
+</div>
+<div class="sx">
+    <span>系统：</span>
+    <a href="">IOS</a>
+    <a href="">Android/安卓</a>
+    <a href="">Windows</a>
+    <a href="">MIUI</a>
+    <a href="">EMUI</a>
+</div>
+<div class="sx">
+    <span>像素：</span>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+    <a href="">4200万</a>
+</div>
+<div class="sx sxx">
+    <a href="">默认排序</a>
+    <a href="">销量</a>
+    <a href="">价格</a>
+    <a href="">人气</a>
+    <a href="" class="xiny">信用</a>
+    <form action="123.php">
+        <input type="text" value="￥" class="te">-
+        <input type="text" value="￥" class="te">
+        <select><option>所在地</option></select>
+        <button class="btn"></button>
+        <input type="text" placeholder="三星S7,炸亮你的美"class="sre">
+    </form>
+</div>
+<!-- 筛选结束 -->
+<!-- 列表开始 -->
+<div class="lb">
+    <div ng-repeat="x in list" data-ng-click="dianJi(x.phone_id)">
+        <ul>
+            <li style="background:url('{{x.phone_tupian1}}') center ;background-repeat:no-repeat;background-size:183px" class="li1"><a href="" class="a2"><p class="sal">{{x.phone_price}}<span>邮费:10元</span></p><p class="sal2">{{x.phone_xinghao}}<span>{{x.phone_xiangqing}}</span></p><p class="sal4">加入购物车</p></a></li>
+        </ul>
+    </div>
+    <div class="fy">
+        <div class="fy1"><a href="">上一页</a><span class="sz">1</span>/<span>100</span><a href="">下一页</a></div>
+    </div>
+</div>
+<!-- 列表结束 -->
+<!-- footer开始 -->
+<div class="footer">
+    <div class="footer1">
+        <ul>
+            <a href=""><li>公司简介</li></a>
+            <a href=""><li>公司历程</li></a>
+            <a href=""><li>特别活动</li></a>
+            <a href=""><li>媒体合作</li></a>
+            <a href=""><li>招贤纳才</li></a>
+            <a href=""><li>联系方式</li></a>
+            <a href=""><li>隐私声明</li></a>
+            <a href=""><li class="lf1">反馈纠错</li></a>
+        </ul>
+        <h1>@2016　小瑕疵环球有限公司　版权所有</h1>
+    </div>
+</div>
+<!-- footer结束 -->
+</body>
+<script>
+    var app=angular.module("app",[]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+        var url="/shangPinAction/moreShangPinList";
+        var data={};
+        $http.post(url,data).then(function (result) {
+            $scope.list=result.data.phone;
+        });
+        $scope.dianJi=function (phoneId) {
+            window.location.href="/shangPinAction/shangPinXiangQing?id="+phoneId;
+        }
+    }])
+</script>
+</html>

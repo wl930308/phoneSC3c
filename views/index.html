@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/css/style-index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="/js/JS.js"></script>
+</head>
+<body>
+<!-- head开始 -->
+<div class="head">
+    <div class="head1">
+        <form action="123.php" class="form1">
+            <div class="di1">
+                <input type="text" class="inp">
+                <button class="btn"></button>
+            </div>
+        </form>
+        <% if(isLogined){ %>
+        <a href="/userAction/tuiChu" class="a1" style="color:deeppink">退出登录</a><span class="a1">当前用户:<%= userName %></span>
+        <% } %>
+        <% if(!isLogined){ %>
+        <a href="/userAction/dlzcPage" class="a1">登陆/注册</a>
+        <% } %>
+        <a href="" class="a1">联系方式</a>
+        <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx54e588f229939c3c&redirect_uri=http://games.yunmengwangluo.com/weiXinZhiFuAction2/weiXinZhiFuActionJsapi/&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect" class="a1">code测试</a>
+        <a href="/dingDanAction/gouWuChePage" class="a1">购物车</a>
+        <a href="/userAction/guangGaoList" class="a1">广告</a>
+        <a href="/shangPinAction/shangPinList" class="a1">商品</a>
+        <a href="/gongSiAction/gongSiListPage" class="a1">公司</a>
+        <a href="/userAction/userList" class="a1">用户</a>
+        <a href="/" class="a1">首页</a>
+    </div>
+</div>
+<!-- head结束 -->
+<!-- banner开始 -->
+<div id="slideBox" class="slideBox">
+
+    <div class="hd">
+        <div class="hd_mid">
+            <span>最新活动</span>
+            <ul><li></li><li></li><li></li></ul>
+        </div>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="" target="_blank"><img src="images/ind/ban3.jpg"/></a></li>
+            <li><a href="" target="_blank"><img src="images/ind/ban2.jpg"/></a></li>
+            <li><a href="" target="_blank"><img src="images/ind/ban1.jpg"/></a></li>
+        </ul>
+    </div>
+</div>
+<!-- banner结束 -->
+<!-- 苹果列表开始 -->
+<div class="apple">
+    <div class="apple1">
+        <h2 class="h21">苹果专区</h2><span class="span1">apple</span>
+        <div class="Mtime">
+            <div class="tabBox">
+                <div class="bd">
+                    <ul>
+                        <li style="background:url(images/iphone511.png) no-repeat;">
+                            <div class="imgs"><a href="/shangPinAction/shangPinXiangQing?id=1"><span class="span11">iphoneSE</span><span class="span12">（64G银色国行）</span><span class="gdj">+</span><span class="span13"><em>报价：</em>3500￥</span></a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hd">
+                    <ul>
+                        <li class="on"><a><img src="images/iphone51.jpg"><p><img src="images/icofd01.png"></p></a></li>
+                        <li><a><img src="images/iphone61.jpg"><p><img src="images/icofd01.png"></p></a></li>
+                        <li><a><img src="images/SHSE.jpg"><p><img src="images/icofd01.png"></p></a></li>
+                        <li class="li1"><a><img src="images/iphone65.jpg"><p><img src="images/icofd01.png"></p></a></li>
+                        <li class="li2"><a><img src="images/iphone62.jpg"><p><img src="images/icofd01.png"></p></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a href="/shangPinAction/moreShangPinPage" class="a2">更多&gt;&gt;</a>
+    </div>
+</div>
+<!-- 苹果列表结束 -->
+<!-- 配件区开始 -->
+<div class="pjq">
+    <div class="pjq1">
+        <ul>
+            <li><span>手机周边</span><a href="">MORE</a></li>
+            <li style="background:url(images/ind/xej.jpg) no-repeat center "><div class="ldi"><a href=""><span class="span21">iphone6手机壳</span><span class="span22">￥26</span></a></div></li>
+            <li style="background:url(images/ind/sjk.jpg) no-repeat center "><div class="ldi"><a href=""><span class="span21">iphone6手机壳</span><span class="gdj">+</span><span class="span22">￥26</span></a></div></li>
+        </ul>
+    </div>
+</div>
+<div class="pjeq">
+    <div class="pjq2">
+        <ul>
+            <li style="background:url(images/ind/cdb.jpg) no-repeat;"><div class="ldi"><a href=""><span class="span21">iphone6手机壳</span><span class="span22">￥26</span></a></div></li>
+            <li style="background:url(images/ind/shse.jpg) no-repeat;"><div class="ldi"><a href=""><span class="span21">iphone6手机壳</span><span class="gdj">+</span><span class="span22">￥26</span></a></div></li>
+            <li style="background:url(images/ind/bej.jpg) no-repeat;"><div class="ldi"><a href=""><span class="span21">iphone6手机壳</span><span class="span22">￥26</span></a></div></li>
+        </ul>
+    </div>
+</div>
+<!-- 配件区结束 -->
+<!-- 品牌区开始 -->
+<div class="pp">
+    <div class="pp1">
+        <dl>
+            <dt><a href="">更多品牌</a></dt>
+            <a href=""><dd style="background:url(images/lo/VT2.jpg);"></dd></a>
+            <a href=""><dd style="background:url(images/lo/nex1.jpg);"></dd></a>
+            <a href=""><dd style="background:url(images/lo/NOKIA1.jpg);"></dd></a>
+            <a href=""><dd style="background:url(images/lo/ZTE1.jpg);"></dd></a>
+            <a href=""><dd style="background:url(images/lo/HW1.jpg);" class="dd1"></dd></a>
+        </dl>
+    </div>
+</div>
+<!-- 品牌区结束 -->
+<!-- footer开始 -->
+<div class="footer">
+    <div class="footer1">
+        <ul>
+            <a href=""><li>公司简介</li></a>
+            <a href=""><li>公司历程</li></a>
+            <a href=""><li>特别活动</li></a>
+            <a href=""><li>媒体合作</li></a>
+            <a href=""><li>招贤纳才</li></a>
+            <a href=""><li>联系方式</li></a>
+            <a href=""><li>隐私声明</li></a>
+            <a href=""><li class="lf1">反馈纠错</li></a>
+        </ul>
+        <h1>@2016　小瑕疵环球有限公司　版权所有</h1>
+    </div>
+</div>
+<!-- footer结束 -->
+<script type="text/javascript">
+    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+    jQuery("#demo1").slide({ mainCell:".bd ul",effect:"top",autoPlay:true,triggerTime:0 });
+    jQuery(".Mtime").slide({ titCell:".MtimeNull",mainCell:".MtimeCon",effect:"leftLoop", autoPlay:false});
+    jQuery(".tabBox").slide({mainCell:".bd ul"});
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style-list.css">
+    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body ng-app="app" ng-controller="con">
+<!-- head开始 -->
+<div class="head headd">
+    <div class="head1">
+        <span class="span1">用心为您服务</span>
+        <span class="span2">
+            <a href="/" class="a1">首页</a>><a href="" class="a1">更多品牌</a>
+        </span>
+        <span class="span3">
+            <a href="/" class="a1">首页</a>
+            <a href="JavaScript:history.back(-1)" class="a1">返回</a>
+            <a href="" class="a1">联系方式</a>
+            <a href="/dingDanAction/gouWuChePage" class="a1">购物车</a>
+            <% if(!isLogined){ %>
+            <a href="/userAction/dlzcPage" class="a1">登陆/注册</a>
+            <% } %>
+            <% if(isLogined){ %>
+            <span class="a1">当前用户:<%=userName%></span><a href="/userAction/tuiChu" class="a1" style="color: deeppink ;font-size:12px">退出登陆</a>
+            <% } %>
+        </span>
+    </div>
+</div>
+<!-- head结束 -->
+<form action="" method="">
+    <div class="xq">
+        <h4>
+            <a href="#">首页</a><a>></a><a href="#">更多产品</a><a>></a><a href="#">商品详情</a>
+            <button class="btn"></button>
+            <input type="text" placeholder="三星S7,炸亮你的美" class="sre">
+        </h4>
+        <div class="xq_sj">
+            <div class="foucebox">
+                <div class="bd">
+                    <ul>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                    </ul>
+                </div>
+                <div class="hd">
+                    <div  class="hoverBg"></div>
+                    <ul>
+                        <li class="hd_li"><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                        <li><a href="#"><img src="<%=phone.phone_tupian1%>"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <script type="text/javascript">
+                jQuery(".foucebox").slide({ mainCell:".bd ul", effect:"fold", autoPlay:true, delayTime:300, triggerTime:50, startFun:function(i){
+                    //下面代码控制鼠标状态滑动
+                    jQuery(".foucebox .hoverBg").animate({"margin-top":104*i},150);
+                }
+                });
+            </script>
+            <div class="xq_right">
+                <p class="xq_right_p"><%=phone.phone_name%><span><%=phone.phone_xinghao%></span></p>
+                <h4 class="xq_right_p1">
+                    <p class="xq_jg"><span>活动价：</span><%=phone.phone_price%></p>
+                    <p class="xq_sjg">售价:￥5700.00<span></span></p>
+                    <!--<p class="xq_fw">服务：30天无忧退货  48小时快速退款  满10元包邮</p>-->
+                    <p class="xq_fw"><%=phone.phone_xiangqing%></p>
+                </h4>
+                <p class="xq_sl"><span class="xq_sll">数量</span><a href="javascript:void(0)" ng-init="shuLiang=1" data-ng-click="jian()">-</a><span class="xq_sll1">{{shuLiang}}</span><a href="javascript:void(0)" ng-init="kuCun=<%=phone.phone_kucun%>-1" data-ng-click="jia()">+</a><span class="xq_sll2"><i>（</i>库存不足{{kuCun}}<i>）</i></span></p>
+                <p class="xq_a">
+                    <input type="button" value="立即购买" class="xq_gm">
+                    <input type="button" value="加入购物车" class="xq_jr" data-ng-click="addDingDan()">
+                    <a href="#"><img src="/images/picxq06.png"><br>收藏</a>
+                </p>
+            </div>
+            <p class="clear"></p>
+        </div>
+        <h2><a href="#">商品详情</a><a href="#" class="spcs">商品参数</a></h2>
+        <table cellspacing="0">
+            <tr><td class="xq_zt">主体</td><td class="xq_zt xq_zt1">品牌<br>型号<br>入网型号<br>上市年份<br>上市月份</td><td class="xq_zt xq_zt2">苹果(Apple)<br>iphone 7 Plus<br>A1661<br>2016年<br>9月</td></tr>
+            <tr><td class="xq_zt">基本信息</td><td class="xq_zt xq_zt1">机身颜色<br>机身长度(mm)<br>机身宽度(mm)<br>机身厚度(mm)<br>机身重量(g)<br>运营商标志或内容<br>机身材质分类</td><td class="xq_zt xq_zt2">黑色<br>158.2<br>77.9<br>7.3<br>188<br>其他<br>其他</td></tr>
+            <tr><td class="xq_zt">操作系统</td><td class="xq_zt xq_zt1">操作系统</td><td class="xq_zt xq_zt2">以官网信息为主</td></tr>
+            <tr><td class="xq_zt">主芯片</td><td class="xq_zt xq_zt1">CPU品牌<br>CPU频率<br>CPU核数<br>CPU型号</td><td class="xq_zt xq_zt2">以官网信息为主<br>以官网信息为主<br>其他<br>A10</td></tr>
+            <tr><td class="xq_zt">网络支持</td><td class="xq_zt xq_zt1">双卡机类型<br>最大支持SIM卡数量<br>SIM卡类型<br>4G网络<br>3G/2G网络<br>网络频率(2G/3G)</td><td class="xq_zt xq_zt2">单卡<br>1个<br>Nano SIM<br>4G：移动（TD-LTE）；4G：联通（TD-LTE）；4G：电信（FDD-LTE）；<br>-<br>-</td></tr>
+            <tr><td class="xq_zt">存储</td><td class="xq_zt xq_zt1">ROM<br>RAM<br>存储卡<br>可用空间</td><td class="xq_zt xq_zt2">32GB<br>其他<br>不支持<br>（因算法不同，手机显示总容量可能小于机身容量，另，实际可供使用的空间小于手机显示总容量，并会因许多因素而可能有所差异，主要由系统占用导致。）</td></tr>
+            <tr><td class="xq_zt">屏幕</td><td class="xq_zt xq_zt1">主屏幕尺寸（英寸）<br>分辨率<br>屏幕材质类型</td><td class="xq_zt xq_zt2">5.5英寸<br>1920*1080（FHD）<br>其他</td></tr>
+            <tr><td class="xq_zt">前置摄像头</td><td class="xq_zt xq_zt1">前置摄像头<br>前摄光圈大小</td><td class="xq_zt xq_zt2">700万像素<br>f/2.2</td></tr>
+            <tr><td class="xq_zt">后置摄像头</td><td class="xq_zt xq_zt1">摄像头数量<br>后置摄像头</td><td class="xq_zt xq_zt2">2个<br>双1200万像素</td></tr>
+            <tr><td class="xq_zt">电池信息</td><td class="xq_zt xq_zt1">电池容量（mAh）<br>电池是否可拆卸<br>充电器</td><td class="xq_zt xq_zt2">以官网信息为准<br>否<br>其他</td></tr>
+            <tr><td class="xq_zt">数据接口</td><td class="xq_zt xq_zt1">数据传输接口<br>NFC/NFC模式<br>耳机接口类型<br>充电接口类型</td><td class="xq_zt xq_zt2">WIFI；WIFI热点；蓝牙<br>其他<br>Lighting<br>Lightningphone</td></tr>
+            <tr><td class="xq_zt">手机特性</td><td class="xq_zt xq_zt1">指纹识别<br>GPS<br>陀螺仪</td><td class="xq_zt xq_zt2">支持<br>支持<br>支持</td></tr>
+            <tr><td class="xq_zt">辅助功能</td><td class="xq_zt xq_zt1">常用功能<br>其他<br>其他特性<br><br>其他1<br><br>其他2<br><br>其他3<br>其他4<br>其他5<br><br>其他6<br><br>其他7<br><br>其他8<br>其他9</td><td class="xq_zt xq_zt2">其他<br>所有产品信息，以苹果官网为准（apple.com.cn)<br>iphone7和iphone 7Plus可防溅、抗水、防尘，在受控实验室条件下经测试，其效果在IEC60529标准下达到IP67级别。防溅、抗水、防尘功能并非永久有效<br>防护性能可能会因日常磨损而下降。请勿为潮湿状态下的iphone充电；请参阅使用手册了解清洁和干燥说明。由于浸入液体而导致的损坏不在保修范围之内<br>亮黑色iphone7和iphone7Plus亮光泽度的外观，采用包含九道精密工序的阳极氧化与抛光工艺打造而成。其表面硬度与其他采用阳极氧化处理的Apple产品相同<br>但是，高光泽度表面可能随着日常使用而出现细微磨损。如果对此有所担心，建议你选择一款合适的保护壳保护你的iphone。<br>Apple Pay仅在部分市场提供。请到苹果官网查看Apple？Pay适用的国家和地区列表<br>所有电池性能信息取决于网络设置和许多其它因素，实际结果可能有所不同。电池充电周期次数有限，最终可能需由Apple服务提供商更换。<br>电池使用时间和充电周期次数依设置和使用情况的不同而可能有所差异。详情请参阅www.apple.com/cn/batteries和详情请参阅www.apple.com/cn/iphone/battery.html。<br>需要使用数据计划。4G LTE Advanced和4G LTE功能适用于特定国家或地区的特定运营商。速度依据理论上的数据吞吐量，并基于现场状况和不同运营商而可能有所差异<br>有关4GLTE支持的详情，请联系你的运营商并查看www.apple.com/iphone/LTE。<br>亮黑色的iphone7和iphone7Plus仅提供128GB和256GB机型。实际可供使用空间小于总容量，并会因许多因素而可能有所差异。某些功能仅适用于部分国家或地区。烦请到苹果官网查看详情</td></tr>
+        </table>
+        <p class="xq_zt4">包装清单装有ios10的iphone*1，采用Lightning街头的EarPods*1，Lightning至35毫米耳机插孔转换器*1，Lightning至USB连接线*1、USB电源适配器*1，资料*1</p>
+        <p class="clear"></p>
+    </div>
+</form>
+<!-- footer开始 -->
+<div class="footer">
+    <div class="footer1">
+        <ul>
+            <a href=""><li>公司简介</li></a>
+            <a href=""><li>公司历程</li></a>
+            <a href=""><li>特别活动</li></a>
+            <a href=""><li>媒体合作</li></a>
+            <a href=""><li>招贤纳才</li></a>
+            <a href=""><li>联系方式</li></a>
+            <a href=""><li>隐私声明</li></a>
+            <a href=""><li class="lf1">反馈纠错</li></a>
+        </ul>
+        <h1>@2016　小瑕疵环球有限公司　版权所有</h1>
+    </div>
+</div>
+<!-- footer结束 -->
+<div class="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">消息提示</h4>
+            </div>
+            <div class="modal-body">{{loginMsg}}</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-ng-show="queDing" data-ng-click="modalQueDing()">确认</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="modalQueDing1()">登陆</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app=angular.module("app",[]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+        $scope.jia=function () {
+            if ($scope.kuCun>0){
+//                alert("+");
+                $scope.shuLiang+=1;
+                $scope.kuCun-=1;
+            }
+        };
+        $scope.jian=function () {
+            if ($scope.shuLiang>0){
+//                alert("-");
+                $scope.shuLiang-=1;
+                $scope.kuCun+=1;
+            }
+        };
+        $scope.addDingDan=function () {
+            var phoneId="<%=phone.phone_id%>";
+            var danJia="<%=phone.phone_price%>";
+            var count=$scope.shuLiang;
+            var zongJia=parseInt(danJia)*parseInt(count);
+            var url="/dingDanAction/addDingDan";
+            var data={phoneId:phoneId,count:count,zongJia:zongJia};
+            $http.post(url,data).then(function (result) {
+                if (result.data.resultCode==undefined){
+                    $("#myModal").modal("show");
+                    $scope.loginMsg="请先登录";
+                }else{
+                    $("#myModal").modal("show");
+                    $scope.loginMsg=result.data.resultMsg;
+                }
+                $scope.modalQueDing1=function () {
+                    window.location.href="/userAction/dlzcPage"
+                }
+//                var resultCode=result.data.resultCode;
+//                var resultMsg=result.data.resultMsg;
+//                if (resultCode==1){
+//                    alert(resultMsg)
+//                }else{
+//                    alert(resultMsg)
+//                }
+            })
+        }
+    }])
+</script>
+</html>

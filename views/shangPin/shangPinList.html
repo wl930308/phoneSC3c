@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script src="/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body ng-app="app" ng-controller="con">
+<table class="table table-responsive table-striped table-hover" border="1">
+    <thead class="bg-primary">
+        <th><input type="checkbox" ng-model="quanXuan">全选</th>
+        <th>序号</th>
+        <th>苹果</th>
+        <th>型号</th>
+        <th>价格</th>
+        <th>详情</th>
+        <th>库存</th>
+        <th>图片1</th>
+        <th>图片2</th>
+        <th>图片3</th>
+        <th>操作</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in list" id={{x.phone_id}}>
+            <td><input type="checkbox" ng-checked="quanXuan" data-ng-click="xuanZhong($event,x.phone_id)"/></td>
+            <td>{{x.phone_id}}</td>
+            <td>{{x.phone_name}}</td>
+            <td>{{x.phone_xinghao}}</td>
+            <td>{{x.phone_price}}</td>
+            <td>{{x.phone_xiangqing}}</td>
+            <td>{{x.phone_kucun}}</td>
+            <td><img style="width: 50px;height: 50px" ng-src="{{x.phone_tupian1}}"></td>
+            <td>{{x.phone_tupian2}}</td>
+            <td>{{x.phone_tupian3}}</td>
+            <td>
+                <a href="/shangPinAction/shangPinEditPage?id={{x.phone_id}}">修改</a> | <a href="/shangPinAction/deleteSp?id={{x.phone_id}}">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="0"><button class="btn btn-primary" data-ng-click="tianJia()">添加商品</button></td>
+            <td colspan="0"><button class="btn btn-primary" data-ng-click="deleteMany()">删除多个</button></td>
+            <td colspan="9"><button class="btn btn-primary" data-ng-click="fanHui()">返回首页</button></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",[]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+        var url="/shangPinAction/selectShangPins";
+        var data={};
+        $http.post(url,data).then(function (result) {
+            $scope.list=result.data.phone;
+        });
+        $scope.tianJia=function () {
+            window.location.href="/shangPinAction/shangPinInsertPage";
+        };
+        $scope.fanHui=function () {
+            window.location.href="/";
+        };
+        var shangPinIdS=[];
+        $scope.xuanZhong=function ($event,shangPinId) {
+            var check=$event.target.checked;//获得当前选中的标签
+            if (check==true){
+                shangPinIdS.push(shangPinId)
+            }else{
+                var index=$.inArray(shangPinId,shangPinIdS);
+                shangPinIdS.splice(index,1)
+            }
+//            alert(shangPinIdS);
+        };
+        $scope.deleteMany=function () {
+            if (shangPinIdS.length>0){
+                var shangPinIdSStr="'"+shangPinIdS.join("\',\'")+"'";
+                $http.post("/shangPinAction/deleteMany",{shangPinIdSStr:shangPinIdSStr}).then(function (result) {
+                    var Code=result.data.resultCode;
+                    if (Code==1){
+                        alert("删除成功");
+                        for (var i=0;i<shangPinIdS.length;i++){
+                            $("#"+shangPinIdS[i]).remove()
+//                            shangPinIdS.splice(i,1);//从数组中删除
+                        }
+                    }else{
+                        alert("删除失败")
+                    }
+                })
+            }else{
+                alert("请先选择要删除的用户")
+            }
+        }
+    }])
+</script>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script src="/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular-messages.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/xianshitupian.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        body{
+            background-image: url(/images/2065744854179650341.jpg);
+        }
+    </style>
+</head>
+<body ng-app="app" ng-controller="con">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><strong>商品添加</strong></h1>
+            <h5>带星号的是必填项</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form role="form" class="form form-horizontal" name="sptj" action="/shangPinAction/shangPinInsert" method="post" enctype="multipart/form-data"><!--撤销验证-->
+                <div class="form-group">
+                    <label for="spName" class="col-md-2 text-right">商品名称<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control col-md-9" ng-minlength="3" ng-maxlength="15" ng-model="spName" required name="spName" id="spName" ng-blur="yanZheng()"/>
+                        <div ng-show="chongfu" class="alert alert-danger">商品名称已重复</div>
+                        <div ng-show="sptj.spName.$dirty && sptj.spName.$invalid" class="alert alert-danger">请输入正确商品名</div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="sptj.spName.$error">
+                        <div ng-messages-include="message"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="spXingHao" class="col-md-2 text-right">商品型号<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="spXingHao" ng-model="spXingHao" id="spXingHao" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="spJiaGe" class="col-md-2 text-right">商品价格<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" name="spJiaGe" ng-model="spJiaGe" id="spJiaGe" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="spXiangQing" class="col-md-2 text-right ">商品详情<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="spXiangQing" ng-maxlength="100" ng-model="spXiangQing" id="spXiangQing"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="spKuCun" class="col-md-2 text-right">商品库存<span style="color: red;">*</span></label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" name="spKuCun" ng-maxlength="3" ng-minlength="1" ng-model="spKuCun" id="spKuCun" required />
+                    </div>
+                    <div class="col-md-10 col-md-offset-2" ng-messages="sptj.spKuCun.$error">
+                        <div class="alert alert-danger" ng-message="number">输入的必须为数字</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 text-right" for="shenfen">图片</label>
+                    <div class="col-md-10">
+                        <input type="file" name="inputFile" multiple="multiple" id="shenfen" onchange="change()">
+                        <img src="" alt="" id="preview" name="phoneP">
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-2 text-right" for="shenfen">图片2:</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="file" name="inputFile2" multiple="multiple">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-2 text-right" for="shenfen">图片3:</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="file" name="inputFile3" multiple="multiple">-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" ng-disabled="sptj.$invalid">提交</button>
+                    <button type="reset" class="btn btn-danger">清空</button>
+                </div>
+                {{sptj.spName.$invalid}}
+                {{sptj.spXingHao.$invalid}}
+                {{sptj.spXiangQing.$invalid}}
+                {{sptj.spJiaGe.$invalid}}
+                {{sptj.spKuCun.$invalid}}
+            </form>
+            <script type="text/ng-template" id="message">
+                <div class="alert alert-danger" ng-message="required">必须填写的</div>
+                <div class="alert alert-danger" ng-message="minlength">最少输入3个字符</div>
+                <div class="alert alert-danger" ng-message="maxlength">最多只能输入15个字符</div>
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",["ngMessages"]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+        $scope.yanZheng=function () {
+            $scope.chongfu=false;
+            var spName=$scope.spName;
+            if (spName!=undefined){
+                var url="/shangPinAction/yanZhengShangPinName";
+                var data={spName:spName};
+                $http.post(url,data).then(function (result) {
+                    var code=result.data.resultCode;
+                    if (code==1){
+                        $scope.chongfu=true;
+                    }
+                })
+            }
+        }
+    }])
+</script>
+</html>

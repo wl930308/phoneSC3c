@@ -1,0 +1,25 @@
+{
+  "name": "phonesc3c",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "~1.17.1",
+    "body-parser-xml": "^1.1.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "morgan": "~1.8.1",
+    "multiparty": "^4.1.3",
+    "mysql": "^2.13.0",
+    "node-uuid": "^1.4.8",
+    "q": "^1.5.0",
+    "request": "^2.81.0",
+    "serve-favicon": "~2.4.2"
+  }
+}

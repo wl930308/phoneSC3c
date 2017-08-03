@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script src="/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/xianshitupian.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body ng-app="app" ng-controller="con" background="/images/2065744854179650341.jpg">
+<div class="container">
+    <caption><h1 class="text-center"><strong>公司添加</strong></h1></caption>
+    <form style="margin-top:50px;" class="form form-horizontal" name="zhuceForm" action="/gongSiAction/insertGongSi" method="post" enctype="multipart/form-data">
+        <div class="form-group" >
+            <label class="col-sm-3 text-right" for="userName">  公司名称：</label>
+            <div class="col-sm-6" >
+                <input class="form-control" name="userName" id="userName" ng-model="userName" ng-minlength="2" ng-maxlength="5" required ng-blur="yanzheng()"/>
+                <div ng-show="zhuceForm.userName.$dirty && zhuceForm.userName.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+                <div ng-show="chongfu" class="alert alert-danger">用户名重复</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="userPass">公司详情：</label>
+            <div class="col-sm-6">
+                <input class="form-control " name="userPass" id="userPass" ng-model="userPass" required=""/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="photo">公司logo：</label>
+            <div class="col-sm-6" >
+                <input type="file" name="inputFile"  id="shenfen" onchange="change()" multiple=multiple>
+                <img id="preview" alt="" name="pic"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="userTel">公司人数：</label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" name="userTel" id="userTel" ng-model="userTel" required="" />
+                <div class="alert alert-danger"  ng-show="zhuceForm.userTel.$invalid && zhuceForm.userTel.$dirty">必须输入人数</div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" ng-disabled="zhuceForm.$invalid" class="btn btn-warning">提交</button>
+            <button type="reset" class="btn btn-danger">清空</button>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",[]);
+    app.controller("con",["$scope","$http",function ($scope,$http) {
+
+    }])
+</script>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style-list.css">
+    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/qrcode.js"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body ng-app="app" ng-controller="con">
+	<!-- head开始 -->
+	<div class="head headd">
+		<div class="head1">
+			<span class="span1">用心为您服务</span>
+			<span class="span2">
+                <a href="/" class="a1">首页</a>><a href="" class="a1">更多品牌</a>
+            </span>
+			<span class="span3">
+                <a href="/" class="a1">首页</a>
+                <a href="/shangPinAction/moreShangPinPage" class="a1">商品列表</a>
+                <a href="/shangPinAction/yiGouMaiList" class="a1">已购买商品</a>
+                <a href="" class="a1">联系方式</a>
+                <a href="/userAction/dlzcPage" class="a1 a2" ng-if="!isLogined">登陆/注册</a>
+                <span class="a1" ng-if="isLogined">当前用户:{{ userName }}</span>
+                <a href="/userAction/tuiChu" class="a1" style="color:deeppink ;font-size:12px" ng-if="isLogined">退出登录</a>
+            </span>
+		</div>
+	</div>
+	<!-- head结束 -->
+    <form action="" method="">
+        <div class="qb">
+          <h4>
+            <span>全部商品</span>
+            <button class="btn"></button>
+            <input type="text" placeholder="三星S7,炸亮你的美" class="sre">
+            <p class="clear"></p>
+          </h4>
+          <table cellspacing="0">
+             <tr class="trr"><td class="td"><input type="checkbox" class="ch" ng-model="quanXuan" data-ng-click="quanXuanZhong($event)">全选</td><td class="td1">商品</td><td class="td2">单价</td><td class="td3">数量</td><td class="td4">小计</td><td class="td5">操作</td></tr>
+             <tr class="trr trr1 trr2 trr3" ng-repeat="x in list track by $index" id="{{x.dingDan_id}}">
+                 <td class="td">
+                     <input type="checkbox" name="fuXuanKuang" class="ch" ng-checked="quanXuan" data-ng-click="xuanZhong($index,$event,x.dingDan_id,x.dingDan_price,x.phone_id)">
+                     <img style="width: 170px;height: 170px" ng-src="{{x.phone_tupian1}}">
+                 </td>
+                 <td class="td1">{{x.phone_name}}<span>{{x.phone_xiangqing}}</span></td>
+                 <td class="td2">{{x.phone_price | currency:"￥"}}</td>
+                 <td class="td3">
+                     <div><a href="javascript:void(0)" data-ng-click="jia($index,x.phone_price,x.phone_kucun,x.dingDan_id)">+</a><span class="js" name="count">{{x.dingDan_count}}</span><a href="javascript:void(0)" data-ng-click="jian($index,x.phone_price,x.phone_kucun,x.dingDan_id)">-</a><br><p name="kc">{{x.phone_kucun}}</p></div>
+                     <br>
+                     <div name="jingGaoDiv" style="display: none;color: red;margin-left: 10px">购买数量大于库存,请减少购买量</div>
+                 </td>
+                 <td class="td4" name="price">{{x.dingDan_price}}<span>0.5KG</span></td>
+                 <td class="td5">
+                     <a href="/dingDanAction/deleteDingDan?id={{x.dingDan_id}}">删除</a>
+                     <a href="#">移到我的收藏</a>
+                 </td>
+             </tr>
+          </table>
+          <h6>
+            <span class="h6_span"><input type="checkbox" class="ch" ng-model="quanXuan" data-ng-click="quanXuanZhong($event)">全选</span>
+            <a href="" class="h6_a" data-ng-click="deleteMany()">删除选中的商品</a>
+            <a href="#">移入我的收藏</a>
+            <a href="" data-ng-click="deleteManyByStr()">删除选中的商品</a>
+            <input type="button" value="去结算" class="h6_btn" data-ng-click="quJieSuan()">
+            <span class="h6_yf">邮费：免邮</span>
+            <span class="h6_zj"><i>总价</i>{{zongJia}}</span>
+            <span class="h6_xz">已选择<i>{{gouMaiShu}}</i>件商品</span>
+            <p class="clear"></p>
+          </h6>
+          <p class="tuimg"><img src="/images/picgwc02.jpg"></p>
+          <p class="clear"></p>
+        </div>
+    </form>
+	<!-- footer开始 -->
+	<div class="footer">
+		<div class="footer1">
+			<ul>
+				<a href=""><li>公司简介</li></a>
+				<a href=""><li>公司历程</li></a>
+				<a href=""><li>特别活动</li></a>
+				<a href=""><li>媒体合作</li></a>
+				<a href=""><li>招贤纳才</li></a>
+				<a href=""><li>联系方式</li></a>
+				<a href=""><li>隐私声明</li></a>
+				<a href=""><li class="lf1">反馈纠错</li></a>
+			</ul>
+			<h1>@2016　小瑕疵环球有限公司　版权所有</h1>
+		</div>
+	</div>
+	<!-- footer结束 -->
+    <div class="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="myModalLabel">消息提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div>{{loginMsg}}</div>
+                    <div align="center" id="qrcode">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-ng-show="queDing" data-ng-click="modalQueDing()">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var app=angular.module("app",[]).controller("con",["$scope","$http","$interval",function ($scope,$http,$interval) {
+        $scope.gouMaiShu=0;
+        $scope.zongJia=0;
+        var dingDanIdS=[];
+        var gouMaiCountS=[];
+        var phoneIdS=[];
+        var buZuIndex=[];
+        var buZuDingDanIdS=[];
+        var xuanZhongSuoYin=[];
+        var url="/dingDanAction/selectWeiZhiFuDingDan";
+        var data={};
+        $http.post(url,data).then(function (result) {
+            var resultCode=result.data.resultCode;
+            if (resultCode != 0){
+                $scope.list=result.data.resultMsg;
+            }else{
+                $("#myModal").modal("show");
+                $scope.loginMsg="请先登录";
+                $scope.queDing=true;
+                $scope.modalQueDing=function () {
+                    window.location.href="/userAction/dlzcPage"
+                }
+            }
+            $scope.isLogined=result.data.isLogined;
+            $scope.userName=result.data.userName;
+        });
+        $scope.jia=function (suoYin,danJia,kuCun,dingDanId) {
+            var countS=document.getElementsByName("count");//这里获得count的数组
+            var priceS=document.getElementsByName("price");//这里获得小计的数组
+            var kcS=document.getElementsByName("kc");//这里获得显示剩余库存的数组
+            var num=countS[suoYin].innerHTML;//通过索引获得选择的那行的购买数
+            if (kuCun>num){
+                var newCount=parseInt(num)+1;//购买数加1
+                countS[suoYin].innerHTML=newCount;
+                var sykucun=kuCun-num-1;
+                kcS[suoYin].innerHTML=sykucun;
+                var xiaoJi=priceS[suoYin].innerHTML;//通过索引获得选择的那行小计
+                priceS[suoYin].innerHTML=parseInt(xiaoJi)+parseInt(danJia);//小计加上我们的单价
+                //这里判断的是下面的总价是否跟着上面的加减而变动
+                var fuXuanKuangS=document.getElementsByName("fuXuanKuang");
+                var flag=fuXuanKuangS[suoYin].checked;
+                if (flag==true){
+                    $scope.zongJia+=parseInt(danJia);
+                    var index=$.inArray(dingDanId,dingDanIdS);
+                    gouMaiCountS[index]=newCount;
+                }
+            }else if($scope.list[suoYin].phone_kucun==num){//这个是加到最大给他个提示
+                var jingGaoDiv=document.getElementsByName("jingGaoDiv");
+                jingGaoDiv[suoYin].style.display="inline-block";
+                jingGaoDiv[suoYin].innerHTML="库存就那么多了";
+                $(jingGaoDiv[suoYin]).fadeOut(4000)
+            }
+//            else if ($scope.sykucun==0){
+//                $scope.sykucun=0;
+////                alert("库存不足,已无法添加")
+//            }
+        };
+        $scope.jian=function (suoYin,danJia,kuCun,dingDanId) {
+            var countS=document.getElementsByName("count");//这里获得count的数组
+            var priceS=document.getElementsByName("price");//这里获得小计的数组
+            var kcS=document.getElementsByName("kc");//这里获得显示剩余库存的数组
+            var num=countS[suoYin].innerHTML;//通过索引获得选择的那行的购买数
+            //这里是判断减法一直减到0就不能减了
+            if (parseInt(num)>0){
+//                $scope.sykucun+=1;
+                if ($scope.list[suoYin].phone_kucun==(num-1)){//这个是用来去掉红字的
+                    var jingGaoDiv=document.getElementsByName("jingGaoDiv");
+                    jingGaoDiv[suoYin].style.display="none";
+                }
+                var sykucun=kuCun-num+1;
+                kcS[suoYin].innerHTML=sykucun;
+                var xiaoJi=priceS[suoYin].innerHTML;//通过索引获得选择的那行小计
+                var newCount=parseInt(num)-1;//购买数减1
+                countS[suoYin].innerHTML=newCount;
+                priceS[suoYin].innerHTML=parseInt(xiaoJi)-parseInt(danJia);//小计减去我们的单价
+                //这里判断下面的总价是否跟着上面的加减而变动
+                var fuXuanKuangS=document.getElementsByName("fuXuanKuang");
+                var flag=fuXuanKuangS[suoYin].checked;
+                if (flag==true){
+                    $scope.zongJia-=parseInt(danJia);
+                    var index=$.inArray(dingDanId,dingDanIdS);
+                    gouMaiCountS[index]=newCount;
+                }
+            }
+        };
+
+
+        $scope.xuanZhong=function (suoYin,$event,dingDanId,xiaoJi,phoneId) {
+            var check=$event.target.checked;
+            if (check==true){
+                dingDanIdS.push(dingDanId);
+                var priceS=document.getElementsByName("price");//获取小计列
+                var priceInt=parseInt(priceS[suoYin].innerHTML);//获取单个索引列的小计 并转成int
+                $scope.zongJia+=priceInt;//总价上加减小计
+//                $scope.zongJia+=xiaoJi;
+                $scope.gouMaiShu+=1;
+                //下面是支付时所需要的购买数量和商品ID
+                var countS=document.getElementsByName("count");
+                var num=countS[suoYin].innerHTML;
+                gouMaiCountS.push(num);
+                phoneIdS.push(phoneId);
+                xuanZhongSuoYin.push(suoYin);
+            }else{
+                var index=$.inArray(dingDanId,dingDanIdS);
+                dingDanIdS.splice(index,1);
+                var priceS=document.getElementsByName("price");//获取小计列
+                var priceInt=parseInt(priceS[suoYin].innerHTML);//获取单个索引列的小计 并转成int
+                $scope.zongJia-=priceInt;//总价上加减小计
+//                $scope.zongJia-=xiaoJi;
+                $scope.gouMaiShu-=1;
+                //这里用了一个技巧，因为购买数量在数组里会重复，所以去索引还是不行的
+                //但是因为存入的时候他和订单ID是一起存入的 他们的所以一样 所以我用订单ID的索引去删购买的数量
+                gouMaiCountS.splice(index,1);
+                phoneIdS.splice(index,1);
+                xuanZhongSuoYin.splice(index,1)
+            }
+        };
+        $scope.quanXuanZhong=function ($event) {
+            $scope.zongJia=0;
+            var flag=$event.target.checked;
+            dingDanIdS=[];
+            gouMaiCountS=[];
+            phoneIdS=[];
+            xuanZhongSuoYin=[];
+            if (flag==true){
+                var priceS=document.getElementsByName("price");
+                var gouMaiCountSS=document.getElementsByName("count");
+                for (var i=0; i<$scope.list.length;i++){
+                    dingDanIdS.push(($scope.list)[i].dingDan_id);
+                    phoneIdS.push(($scope.list)[i].phone_id);
+                    gouMaiCountS.push(gouMaiCountSS[i].innerHTML);
+//                    $scope.zongJia+=($scope.list)[i].dingDan_price; //这个是单价
+                    $scope.zongJia+=parseInt(priceS[i].innerHTML);
+                    xuanZhongSuoYin.push(i);
+
+                }
+                $scope.gouMaiShu=$scope.list.length;
+            }else{
+                dingDanIdS=[];
+                gouMaiCountS=[];
+                phoneIdS=[];
+                xuanZhongSuoYin=[];
+                $scope.gouMaiShu=0;
+                $scope.zongJia=0;
+            }
+        };
+        $scope.deleteMany=function () {
+            if (dingDanIdS.length>0){
+                var dingDanIdSStr="'"+dingDanIdS.join("\',\'")+"'";
+                $http.post("/dingDanAction/deleteMany",{dingDanIdSStr:dingDanIdSStr}).then(function (result) {
+                    var Code=result.data.resultCode;
+                    if (Code==1){
+                        alert("删除成功");
+                        for (var i=0;i<dingDanIdS.length;i++){
+                            $("#"+dingDanIdS[i]).remove()
+//                            dingDanIdS.splice(i,1);//从数组中删除
+                        }
+                        dingDanIdS=[];
+                        gouMaiCountS=[];
+                        phoneIdS=[];
+                        $scope.zongJia=0;
+                        $scope.gouMaiShu=0;
+                    }else{
+                        alert("删除失败")
+                    }
+                })
+            }else{
+                alert("请先选择要删除的用户")
+            }
+        };
+        $scope.deleteManyByStr=function () {
+            if (dingDanIdS.length>0){
+                var dingDanIdSStr=dingDanIdS.join(",");
+                $http.post("/dingDanAction/deleteManyByStr",{dingDanIdSStr:dingDanIdSStr}).then(function (result) {
+                    var Code=result.data.resultCode;
+                    if (Code==1){
+                        alert("删除成功");
+                        for (var i=0;i<dingDanIdS.length;i++){
+                            $("#"+dingDanIdS[i]).remove()
+//                            dingDanIdS.splice(i,1);//从数组中删除
+                        }
+                        dingDanIdS=[];
+                        gouMaiCountS=[];
+                        phoneIdS=[];
+                        $scope.zongJia=0;
+                        $scope.gouMaiShu=0;
+                    }else{
+                        alert("删除失败")
+                    }
+                })
+            }else{
+                alert("请先选择要删除的用户")
+            }
+        };
+        $scope.quJieSuan=function () {
+            buZuIndex=[];//装不足的索引
+            //下面是抓涡轮是打勾还是没打勾的所有的购买数量
+            var gouMaiCountSS=document.getElementsByName("count");
+            var jingGaoDivS=document.getElementsByName("jingGaoDiv");
+            //抓所有的行 每一次进来先把红字清空 然后对比每一行你点过加减后的数字和库存做对比
+            //把不足的 行索引和订单ID存起来
+            for (var i=0;i<$scope.list.length;i++){
+                jingGaoDivS[i].style.display="none";
+                if (gouMaiCountSS[i].innerHTML>$scope.list[i].phone_kucun){
+                    buZuIndex.push(i);
+                    buZuDingDanIdS.push($scope.list[i].dingDan_id)
+                }
+            }
+//            alert(buZuIndex);
+//            alert(buZuDingDanIdS);
+            //判定如果选中了商品
+            if (dingDanIdS.length>0){
+                var biaoZhi=false;//定义boolean类型值
+                //下面是比对 如果你选中要结算的商品的订单 在我不足的订单ids里 那么就不能结算了 bollean类型值变true
+                for (var i=0;i<dingDanIdS.length;i++){
+                    if ($.inArray(dingDanIdS[i],buZuDingDanIdS)>=0){
+                        biaoZhi=true;
+                    }
+                }
+                //如果不足索引数组里有值 并且不足的那个你还选中了  那你真的不能结算了， 加红字
+                if (buZuIndex.length>0 && biaoZhi==true){
+                    var jingGaoDiv=document.getElementsByName("jingGaoDiv");
+                    for (var i=0;i<buZuIndex.length;i++){
+                        var weiZhi=$.inArray(buZuIndex[i],xuanZhongSuoYin);
+                        if (weiZhi>=0){
+                            jingGaoDiv[xuanZhongSuoYin[weiZhi]].style.display="inline-block";
+                        }
+                    }
+                }else{//否则结算
+//                    alert(dingDanIdS);
+//                    alert(gouMaiCountS);
+//                    alert(phoneIdS);
+                    var url="/weiXinZhiFuAction/xiaDingDan";
+//                    var dingDanIdSStr="'"+dingDanIdS.join("\'-\'")+"'";
+//                    var phoneIdSStr="'"+phoneIdS.join("\'-\'")+"'";
+//                    var gouMaiCountSStr="'"+gouMaiCountS.join("\'-\'")+"'";
+                    var dingDanIdSStr=dingDanIdS.join("-");
+                    var phoneIdSStr=phoneIdS.join("-");
+                    var gouMaiCountSStr=gouMaiCountS.join("-");
+                    var data={dingDanIdSStr:dingDanIdSStr,phoneIdSStr:phoneIdSStr,gouMaiCountSStr:gouMaiCountSStr};
+                    $http.post(url,data).then(function (result) {
+                        $("#erWeiMa").remove();
+                        var code=result.data.resultCode;
+                        if (code==1){
+                            var codeUrl=result.data.obj;
+                            var qr=qrcode(10,'M');//设置属性
+                            qr.addData(codeUrl);//把url添加进去
+                            qr.make();//调用生成的方法
+                            var dom=document.createElement("DIV");
+                            dom.setAttribute("id","erWeiMa");
+                            dom.innerHTML=qr.createImgTag();//创建二维码
+                            var element=document.getElementById("qrcode");
+                            element.appendChild(dom);
+                            $scope.queDing=true;
+                            $("#myModal").modal("show");
+                            //查询订单是否改变状态
+                            var ting=$interval(function () {
+                                selectDingDanState(dingDanIdS,ting)
+                            },3000)
+                        }else{
+
+                        }
+                    })
+                }
+            }else{
+                alert("请选择要购买的商品")
+            }
+        };
+        function selectDingDanState(dingDanIdS,ting) {
+            var dingDanIdSStr=dingDanIdS.join(",");
+            var url="/dingDanAction/selectDingDanState";
+            var data={dingDanIdSStr:dingDanIdSStr};
+            $http.post(url,data).then(function (result) {
+                var code=result.data.resultCode;
+                if (code==1){
+                    alert("恭喜您购买成功，请跳转已支付页面查看购买的商品");
+                    $("#myModal").modal("hide");
+                    for (var i=0;i<dingDanIdS.length;i++){
+                        $("#"+dingDanIdS[i]).remove();
+                    }
+                    $interval.cancel(ting);
+                }
+            })
+        }
+    }])
+</script>
+</html>
